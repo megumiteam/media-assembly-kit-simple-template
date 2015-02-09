@@ -1,0 +1,96 @@
+// common
+// body
+$color__background-body: #fff;
+$color__background-screen: #f1f1f1;
+$color__text-main: #191919;
+$color__text-screen: #21759b;
+$font__main: "Raleway", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro W3", Meiryo, "メイリオ", sans-serif;
+$font__line-height-body: 1.5;
+
+// link
+$color__link: #1f93cc;
+$color__link-visited: #1f93cc;
+$color__link-hover: darken(#1f93cc, 15%);
+
+// hr
+$color__background-hr: #cecdce;
+
+// form
+$color__background-button: #e6e6e6;
+$color__background-button-hover: #e6e6e6;
+$color__background-button-focus: #e6e6e6;
+$color__text-button: $color__text-main;
+$color__text-button-hover: $color__text-main;
+$color__text-button-focus: $color__text-main;
+$color__border-button: $color__background-hr;
+$color__border-button-hover: $color__background-hr;
+$color__border-button-focus: $color__background-hr;
+$color__text-input: #9c9c9c;
+$color__text-input-focus: $color__text-main;
+$color__border-input: #d4d4d4;
+
+// blockquote
+$color__background-blockquote: white;
+$color__border-blockquote: #949494;
+$style__border-blockquote: none none none solid;
+$width__border-blockquote: 0 0 0 5px;
+$padding__border-blockquote: 1em 0 1em 1em;
+
+// pre code
+$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font__pre: "Courier 10 Pitch", Courier, monospace;
+$font__line-height-pre: 1.6;
+$color__background-pre: $color__background-body;
+$color__border-pre: $color__background-hr;
+$color__text-pre: #787878;
+$size__border-radius-pre: 3px;
+
+// ins
+$color__background-ins: #fff9c0;
+
+// abbr
+$color__border-abbr: #666;
+
+// space
+$margin__section: 15px;
+
+// header
+$color__text-site-title: #000;
+$color__background-button-site-header: white;
+$color__background-button-site-header-hover: #e6e6e6;
+$color__background-search-form: #e3e3e3;
+
+// #site-navigation
+$width__site-navigation: 240px;
+$color__background-site-navigation: #e3e3e3;
+$color__link-site-navigation: $color__text-main;
+$color__link-site-navigation-hover: $color__link-hover;
+$color__border-site-navigation: $color__background-hr;
+
+// page-header
+$color__background-page-header: #e3e3e3;
+$color__text-page-title: $color__text-main;
+
+// #post-box hentry
+$color__text-loading: #666;
+$color__border-hentry: $color__background-hr;
+
+// entry
+$color__text-entry-title: $color__text-main;
+$color__text-entry-meta: $color__text-main;
+
+// more-entry
+$color__link-more-entry: $color__link;
+$color__border-more-entry: $color__link;
+$color__background-more-entry: lighten($color__link, 48%);
+$color__link-more-entry-hover: $color__link-hover;
+$color__border-more-entry-hover: $color__link-hover;
+$color__background-more-entry-hover: lighten($color__link-hover, 60%);
+
+
+// widget
+$color__text-widget-title: $color__text-main;
+
+// footer
+$color__background-site-footer: #000;
+$color__text-site-footer: white;

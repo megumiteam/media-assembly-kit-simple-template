@@ -1,0 +1,21 @@
+header#masthead.site-header(role="banner")
+
+	h1.site-title: a.homelink(href="/", rel="home") #{sitename}
+
+	nav#site-navigation.main-navigation(role="navigation")
+
+		button#site-navigation-toggle.menu-toggle
+			span.screen-reader-text MENU
+			i.fa.fa-bars
+		#site-navigation-menu
+
+	#search-box
+		button#search-box-toggle.search-box-toggle
+			span.screen-reader-text Search
+			i.fa.fa-search
+		form.search-form(role="search", method="get", action="/")
+			input.search-field(type="search", value="", name="s", placeholder="Search")
+			button.search-submit(type="submit")
+				i.fa.fa-search
+				span.screen-reader-text 検索
+

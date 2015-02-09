@@ -1,0 +1,64 @@
+.site-header {
+	padding: $margin__section;
+	border-bottom: solid 3px $color__background-hr;
+	position: relative;
+	button {
+		background: $color__background-button-site-header;
+		padding: 7px 10px;
+		&:hover, &:focus {
+			background: $color__background-button-site-header-hover;
+		}
+		.fa {
+			@include fz(16);
+		}
+	}
+	
+}
+.site-title {
+	margin: 0;
+	text-align: center;
+	font-weight: 900;
+	color: $color__text-site-title;
+	padding: 0 40px;
+	@include fz(25);
+	a {
+		color: $color__text-site-title;
+		text-decoration: none;
+	}
+}
+
+#search-box {
+
+	.search-form {
+		display: none;
+		padding: $margin__section;
+		background: $color__background-search-form;
+		position: absolute;
+		left: 0;
+		top: 70px;
+		.search-submit {
+			top: ($margin__section + 6px + 1px);
+			right: ($margin__section + 5px + 1px);
+		}
+	}
+}
+
+#search-box-toggle {
+	position: absolute;
+	top: $margin__section + 5px;
+	right: $margin__section;
+}
+.search-form {
+	position: relative;
+	width: 100%;
+	.search-field {
+		width: 100%;
+		padding-right: 40px;
+	}
+	.search-submit {
+		position: absolute;
+		top: 6px;
+		right: 5px;
+		border: none;
+	}
+}

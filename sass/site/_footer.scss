@@ -1,0 +1,9 @@
+.site-footer {
+	padding: $margin__section;
+	background: $color__background-site-footer;
+	color: $color__text-site-footer;
+	#copyright {
+		margin: 0;
+		@include fz(10);
+	}
+}

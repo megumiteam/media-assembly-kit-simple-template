@@ -1,0 +1,51 @@
+extends extends/_layout
+
+block vars
+	- var sitename    = 'Media Blogger';
+	- var title       = 'title';
+	- var description = 'description';
+	- var type        = 'page';
+
+//- scripts
+block append wp_head
+
+block append wp_footer
+	script(src="/assets/js/wpjsonranking.min.js?ver=#{ver}")
+	script(src="/assets/js/wpjsonpost.min.js?ver=#{ver}")
+	script.
+		(function($) {
+			// page
+			$(window).load( function() {
+				HashObserve.addFunc(function(now_hash, prev_hash){
+				if ( now_hash !== prev_hash ) {
+					var hashobj  = location.hash.split("/");
+					hashobj.shift();
+					var id	 = hashobj.join('/');
+					wpjsonPost( 'page', 'pages', '/' + id );
+					}
+				});
+				
+				setInterval(HashObserve.observe, 1000/30);
+			});
+		})(jQuery);
+
+//- primary content
+block primary
+
+	//- Page
+	article.post.hentry
+		header.entry-header
+			h1.entry-title
+
+		section.entry-content
+			#entry-box
+				include includes/_loader
+
+//- secondary content
+block secondary
+
+	//- Ranking
+	#ranking-box
+		aside.widget.widget-ranking
+			h1.widget-title Ranking
+			#ranking-list

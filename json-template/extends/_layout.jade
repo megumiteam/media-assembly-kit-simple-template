@@ -1,0 +1,62 @@
+- var ver = 201501211100
+doctype html
+block vars
+html(lang="ja", xmlns:og="http://ogp.me/ns#", xmlns:fb="http://www.facebook.com/2008/fbml", xmlns:mixi="http://mixi-platform.com/ns#")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		if type == 'home'
+			meta(name="fragment", content="!")
+
+		if type == 'home'
+			title #{sitename} | #{title}
+		else 
+			title #{title} | #{sitename}
+		//- link#shortcut-icon(rel="shortcut icon", href="")
+		//- link#apple-touch-icon(rel="apple-touch-icon", href="")
+		//- meta(name="description", content="#{description}")
+		//- meta(name="keywords", content="")
+		//- OGP and meta stert
+		//- meta(property="og:title", content="")
+		//- if type == 'single'
+		//- 	meta(property="og:type", content="article")
+		//- else
+		//- 	meta(property="og:type", content="website")
+		//- meta(property="og:description", content="")
+		//- meta(property="og:url", content="")
+		//- meta(property="og:image", content="")
+		//- meta(property="og:site_name", content="#{sitename}")
+		//- meta(property="og:locale", content="ja_JP")
+		//- end OGP and meta end
+		//- link#normalize-css(rel="stylesheet", href="/assets/lib/normalize.css")
+		link#google-fonts-css(rel="stylesheet", href="//fonts.googleapis.com/css?family=Raleway:700,900,400")
+		link#font-awesome-css(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+		link#mak-css(rel="stylesheet", href="/assets/css/style.css?ver=#{ver}")
+
+		script(src="//code.jquery.com/jquery-1.11.2.min.js")
+		script(src="//code.jquery.com/jquery-migrate-1.2.1.min.js")
+
+		block wp_head
+
+	body(class=type)
+
+		#page.hfeed.site
+
+			include ../includes/_header
+
+			#content.site-content
+
+				main#primary.site-main(role="main")
+					block primary
+
+				#secondary.widget-area(role="complementary")
+					block secondary
+
+			include ../includes/_footer
+
+		block wp_footer
+
+			script(src="/assets/js/app.min.js?ver=#{ver}")
+			script(src="/assets/js/wpjsonroot.min.js?ver=#{ver}")
+			//-script(src="/assets/js/wpjson.min.js?ver=#{ver}")
+

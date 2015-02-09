@@ -1,0 +1,26 @@
+extends extends/_layout
+
+block vars
+	- var sitename    = 'Media Blogger';
+	- var title       = '404';
+	- var description = '404';
+	- var type        = 'error404';
+
+//- scripts
+block append wp_head
+
+block append wp_footer
+
+//- primary content
+block primary
+
+	article#post-0.error404.not-found
+		header.page-header
+			h1.page-title ページが見つかりませんでした。
+
+		section.page-content
+			p ここには何も見つかりませんでした。
+
+
+//- secondary content
+block secondary

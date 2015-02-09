@@ -1,0 +1,47 @@
+extends extends/_layout
+
+block vars
+	- var sitename    = 'Media Blogger';
+	- var title       = 'Media Assembly Kit demo site.';
+	- var description = 'Media Assembly Kit demo site.';
+	- var type        = 'home';
+
+//- scripts
+block append wp_head
+
+block append wp_footer
+	script(src="/assets/js/wpjsonranking.min.js?ver=#{ver}")
+	script(src="/assets/js/wpjsonpostlist.min.js?ver=#{ver}")
+	script.
+		(function($) {
+			// HOME
+			var lpath    = location.hash.split("/");
+			var lpathend = lpath[lpath.length-1];
+			if ( lpathend === '' ) {
+				lpath.pop();
+			}
+			var page    = lpath[lpath.length-2];
+			var pagenum = "";
+			if ( page == 'page' ) {
+				pagenum     = lpathend;
+			}
+			wpjsonPosts( '', '', '', true );
+		})(jQuery);
+
+//- primary content
+block primary
+
+	//- Posts
+	#post-box.post-list
+		include includes/_loader
+	//- more btn
+	#more-entry
+
+//- secondary content
+block secondary
+
+	//- Ranking
+	#ranking-box
+		aside.widget.widget-ranking
+			h1.widget-title Ranking
+			#ranking-list
