@@ -1,6 +1,11 @@
 var root = 'http://' + location.hostname + '/wp-json/';
 (function($){
 
+// escapeHTML
+window.escapeHTML = function(val) {
+	return $('<div>').html(val).text();
+};
+
 // ThemeOption
 window.wpjsonThemeOption = function() {
 	var ThemeOption = {};
