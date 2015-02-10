@@ -85,9 +85,17 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 	}
 	var apiurl = root + 'posts/' + home_posts_per_page;
 
+	var postBox = $('#post-box');
+	var moreBox = $('#more-entry');
+
 	// archive
 	if ( archive === true ) {
 		if ( pagenum === "" ) { // 1page only
+			console.log( postBox.has( '.loading' ).length );
+			if ( postBox.has( '.loading' ).length < 1 ) {
+				postBox.html( '<div class="loading"><i class="fa fa-refresh fa-5x fa-spin"></i><br><span>loading</span></div>' );
+			}
+			
 			if ( tax === 's' ) {
 				var stitle = decodeURIComponent( slug );
 					stitle = stitle.replace( /\+/g, ' ' );
@@ -156,9 +164,6 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 		apiurl = root + 'posts?filter[' + tax + ']=' + slug;
 	}
 
-	var postBox = $('#post-box');
-	var moreBox = $('#more-entry');
-
 	var pagefilter = '';
 	if ( pagenum !== '' ) {
 		pagefilter = '?page=' + pagenum;
@@ -220,8 +225,12 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 		});
 
 		items = items.join("\n");
-		postBox.children( '.loading' ).remove();
-		postBox.append(items);
+		if ( pagenum === "" ) {
+			postBox.html(items);
+		} else {
+			postBox.children( '.loading' ).remove();
+			postBox.append(items);
+		}
 
 		// page link
 		var nextpagenum = "";
