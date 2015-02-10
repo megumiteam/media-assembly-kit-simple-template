@@ -81,7 +81,6 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 	// archive
 	if ( archive === true ) {
 		if ( pagenum === "" ) { // 1page only
-			console.log( postBox.has( '.loading' ).length );
 			if ( postBox.has( '.loading' ).length < 1 ) {
 				postBox.html( '<div class="loading"><i class="fa fa-refresh fa-5x fa-spin"></i><br><span>loading</span></div>' );
 			}
