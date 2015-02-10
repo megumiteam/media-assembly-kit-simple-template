@@ -9,7 +9,7 @@ window.wpjsonRanking = function( type ) {
 		type = 'simple';
 	}
 
-	var RankingArea = $('#ranking-list');
+	var RankingArea = $('#ranking-box');
 	$.ajax({
 		type: 'GET',
 		url:  root + 'mak_ranking/'

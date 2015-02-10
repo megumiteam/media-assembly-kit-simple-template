@@ -9,92 +9,6 @@ window.escapeHTML = function(val) {
 // ThemeOption
 window.wpjsonThemeOption = function() {
 	var ThemeOption = {};
-	$.ajax({
-		type:  "GET",
-		url:   root + 'mak_themeoption/',
-		async: false
-	}).done(function(data, status, xhr) {
-		if ( data.length === 0 || data === false ) {
-			return;
-		}
-		$.each(data, function() {
-			if ( this.value === false ) {
-				ThemeOption[this.name] = '';
-			} else {
-				ThemeOption[this.name] = this.value;
-			}
-			if ( this.name === 'background_image' ) {
-				ThemeOption['background_image_url'] = '';
-				if ( this.value !== false ) {
-					if ( this.value !== '0' && this.value !== '' ) {
-						$.ajax({
-							type:  "GET",
-							url:   root + 'media/' + this.value,
-							async: false
-						}).done(function(data, status, xhr) {
-							ThemeOption['background_image_url'] = data.source;
-						});
-					}
-				}
-			}
-			if ( this.name === 'background_image_mobile' ) {
-				ThemeOption['background_image_url_mobile'] = '';
-				if ( this.value !== false ) {
-					if ( this.value !== '0' && this.value !== '' ) {
-						$.ajax({
-							type:  "GET",
-							url:   root + 'media/' + this.value,
-							async: false
-						}).done(function(data, status, xhr) {
-							ThemeOption['background_image_url_mobile'] = data.source;
-						});
-					}
-				}
-			}
-			if ( this.name === 'ogp_image' ) {
-				ThemeOption['ogp_image_url'] = '';
-				if ( this.value !== false ) {
-					if ( this.value !== '0' && this.value !== '' ) {
-						$.ajax({
-							type:  "GET",
-							url:   root + 'media/' + this.value,
-							async: false
-						}).done(function(data, status, xhr) {
-							ThemeOption['ogp_image_url'] = data.source;
-						});
-					}
-				}
-			}
-			if ( this.name === 'favicon_image' ) {
-				ThemeOption['favicon_image_url'] = '';
-				if ( this.value !== false ) {
-					if ( this.value !== '0' && this.value !== '' ) {
-						$.ajax({
-							type:  "GET",
-							url:   root + 'media/' + this.value,
-							async: false
-						}).done(function(data, status, xhr) {
-							ThemeOption['favicon_image_url'] = data.source;
-						});
-					}
-				}
-			}
-			if ( this.name === 'apple_touch_icon_image' ) {
-				ThemeOption['apple_touch_icon_image_url'] = '';
-				if ( this.value !== false ) {
-					if ( this.value !== '0' && this.value !== '' ) {
-						$.ajax({
-							type:  "GET",
-							url:   root + 'media/' + this.value,
-							async: false
-						}).done(function(data, status, xhr) {
-							ThemeOption['apple_touch_icon_image_url'] = data.source;
-						});
-					}
-				}
-			}
-		});
-	});
 
 	// RootObj
 	var wpjsonRootObj = $.ajax({
@@ -128,20 +42,6 @@ $('title').each(function(){
 });
 $('a.homelink').attr( 'href', ThemeOption.site_url );
 
-// favicon
-if ( ThemeOption.favicon_image_url !== '' ) {
-	$('#shortcut-icon').attr( 'href', ThemeOption.favicon_image_url );
-}
-// apple-touch-icon
-if ( ThemeOption.apple_touch_icon_image_url !== '' ) {
-	$('#apple-touch-icon').attr( 'href', ThemeOption.apple_touch_icon_image_url );
-}
-
-// Google Analytics
-if ( ThemeOption.google_analytics_code !== '' ) {
-	$('head').append( ThemeOption.google_analytics_code );
-}
-
 // Global Menu
 var GlobalMenuBox = $('#site-navigation-menu');
 var GlobalMenu = [];
@@ -154,8 +54,9 @@ var wpjsonGlobalMenuObj = $.ajax({
 	}
 
 	$.each(data, function() {
+		catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
 		GlobalMenu.push(
-			'<li><a href="' + this.link + '">' + this.name + '</a></li>'
+			'<li><a href="' + catlink + '">' + this.name + '</a></li>'
 		);
 	});
 	// output

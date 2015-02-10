@@ -101,7 +101,7 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 		date         = data.date;
 		date         = date.substr(0,19) + '+09:00';
 		dateja       = post_date_format( date );
-		link         = data.link;
+		link         = 'http://' + location.hostname + '/post/#!/' + ID;
 		content      = data.content;
 		thumbnail    = '';
 		if ( data.featured_image !== null ) {
@@ -126,9 +126,9 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 		if ( objtype === 'post' ) {
 			// sns entrySNSBox
 			var snstitle = data.title + ' | ' + ThemeOption.site_name;
-			var snsurl   = data.link;
+			var snsurl   = link;
 			
-			entrySNSBox.children('.twitter').attr( 'href', 'http://twitter.com/share?url=' + encodeURI( snsurl ).replace('#', '%23') + '&counturl=' + encodeURI( snsurl ).replace('#', '%23') + '&text=' + encodeURI( snstitle ) );
+			entrySNSBox.children('.twitter').attr( 'href', 'http://twitter.com/share?url=' + encodeURI( snsurl ).replace('#', '%23') + '&text=' + encodeURI( snstitle ) );
 	
 			entrySNSBox.children('.facebook').attr( 'href', 'http://www.facebook.com/share.php?u=' + encodeURI( snsurl ).replace('#', '%23') + '&t=' + snstitle );
 	
@@ -144,7 +144,8 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 			}
 			if ( categories ) {
 				$.each( categories, function() {
-					catitems.push( '<a href="' + this.link + '">' + this.name + '</a>' );
+					catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
+					catitems.push( '<a href="' + catlink + '">' + this.name + '</a>' );
 				});
 				catitems = catitems.join(", ");
 				entryCatsBox.children( 'span.cats' ).html( catitems );
@@ -160,7 +161,8 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 			}
 			if ( tags ) {
 				$.each( tags, function() {
-					tagitems.push( '<a href="' + this.link + '">' + this.name + '</a>' );
+					taglink = 'http://' + location.hostname + '/tag/#!/' + this.slug;
+					tagitems.push( '<a href="' + taglink + '">' + this.name + '</a>' );
 				});
 				tagitems = tagitems.join(", ");
 				entryTagsBox.children( 'span.tags' ).html( tagitems );
@@ -227,7 +229,6 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 // Related Posts
 window.wpjsonRelated = function( id ) {
 
-	var ua = 'pc';
 	var RelatedArea = $('#related-box');
 
 	if ( typeof id === 'undefined' ) {
@@ -237,7 +238,7 @@ window.wpjsonRelated = function( id ) {
 
 	$.ajax({
 		type: 'GET',
-		url:  root + 'mak_related/' + ua + '/' + id
+		url:  root + 'mak_related/' + id
 	}).done(function(data, status, xhr) {
 		if ( data.content.length === 0 ) {
 			RelatedArea.remove();

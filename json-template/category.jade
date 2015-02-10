@@ -31,7 +31,7 @@ block append wp_footer
 						if ( hashobj.length > 2 ) {
 							page	 = hashobj[3];
 						}
-						wpjsonPosts( taxonomy, term, page, false );
+						wpjsonPosts( taxonomy, term, page );
 					}
 				});
 				
@@ -58,6 +58,3 @@ block secondary
 
 	//- Ranking
 	#ranking-box
-		aside.widget.widget-ranking
-			h1.widget-title Ranking
-			#ranking-list

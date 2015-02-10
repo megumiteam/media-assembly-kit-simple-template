@@ -40,7 +40,7 @@ block append wp_footer
 			}
 			var search = result['s'];
 
-			wpjsonPosts( 's', search, page, false );
+			wpjsonPosts( 's', search, page );
 		})(jQuery);
 
 //- primary content
@@ -60,6 +60,3 @@ block secondary
 
 	//- Ranking
 	#ranking-box
-		aside.widget.widget-ranking
-			h1.widget-title Ranking
-			#ranking-list

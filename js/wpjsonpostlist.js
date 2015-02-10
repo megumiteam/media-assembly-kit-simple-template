@@ -32,8 +32,6 @@ var HashObserve = {
 
 (function($){
 
-var ThemeOption = wpjsonThemeOption();
-
 // Date Format
 function post_date_format( date ) {
 	var toDoubleDigits = function(num) {
@@ -60,7 +58,7 @@ function post_date_format( date ) {
 }
 
 // posts
-window.wpjsonPosts = function( tax, slug, pagenum, home ) {
+window.wpjsonPosts = function( tax, slug, pagenum ) {
 
 	var archive = true;
 	if ( typeof tax === 'undefined' || tax === '' ) {
@@ -76,15 +74,7 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 		pagenum = '';
 	}
 
-	if ( typeof home === 'undefined' ) {
-		home = false;
-	}
-	var home_posts_per_page = '';
-	if ( home === true ) {
-		home_posts_per_page = '?filter[posts_per_page]=' + ThemeOption.home_posts_per_page;
-	}
-	var apiurl = root + 'posts/' + home_posts_per_page;
-
+	var apiurl  = root + 'posts/';
 	var postBox = $('#post-box');
 	var moreBox = $('#more-entry');
 
@@ -110,7 +100,7 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 					taxonomy = 'post_tag';
 				}
 				
-				var wpjsonTaxObj = $.ajax({
+				$.ajax({
 					type: 'GET',
 					url:  root + 'taxonomies/' + taxonomy + '/terms/'
 				}).done(function(data, status, xhr) {
@@ -172,7 +162,7 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 		}
 	}
 
-	var wpjsonObj = $.ajax({
+	$.ajax({
 		type: 'GET',
 		url:  apiurl + pagefilter
 	}).done(function(data, status, xhr) {
@@ -190,6 +180,8 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 			dateja     = post_date_format( date );
 			//thumbnail  = 'http://placehold.it/100x70&amp;text=noimage';
 			thumbnail  = '';
+			link       = 'http://' + location.hostname + '/post/#!/' + this.ID;
+
 			if ( this.featured_image !== null && this.featured_image.source !== undefined ) {
 				thumbnail = this.featured_image.source;
 				if ( this.featured_image.attachment_meta.sizes !== undefined && this.featured_image.attachment_meta.sizes['square-100-image'] !== undefined ) {
@@ -197,13 +189,14 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 				}
 			}
 			if ( thumbnail !== '' ) {
-				thumbnail = '<div class="thumbnail"><a href="' + this.link + '" title="' +  this.title + '" rel="bookmark"><img src="' + thumbnail + '" alt="*"></a></div>';
+				thumbnail = '<div class="thumbnail"><a href="' + link + '" title="' +  this.title + '" rel="bookmark"><img src="' + thumbnail + '" alt="*"></a></div>';
 			}
 			categoryArray = '';
 			if ( this.terms.category !== undefined ) {
 				categoryArray = this.terms.category;
 				$.each(categoryArray, function( i ) {
-					categoryArray[i] = '<a href="' + this.link + '">' + this.name + '</a>';
+					catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
+					categoryArray[i] = '<a href="' + catlink + '">' + this.name + '</a>';
 				});
 				categoryArray = categoryArray.join("\n");
 			}
@@ -213,9 +206,9 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 				'<div id="post-' + this.ID + '" class="post hentry has-thumbnail">' +
 					thumbnail +
 					'<div class="entry-header">' +
-						'<h1 class="entry-title"><a href="' + this.link + '" title="' +  this.title + '" rel="bookmark">' + this.title + '</a></h1>' +
+						'<h1 class="entry-title"><a href="' + link + '" title="' +  this.title + '" rel="bookmark">' + this.title + '</a></h1>' +
 						'<div class="entry-meta">' +
-							'<div class="entry-date"><i class="fa fa-calendar"></i><time datetime="' + date + '"><a href="' + this.link + '">' + dateja + '</a></time></div>' +
+							'<div class="entry-date"><i class="fa fa-calendar"></i><time datetime="' + date + '"><a href="' + link + '">' + dateja + '</a></time></div>' +
 							'<div class="posted-in-category"><i class="fa fa-folder-open"></i>' + categoryArray + '</div>' +
 						'</div>' +
 					'</div>' +
@@ -243,7 +236,7 @@ window.wpjsonPosts = function( tax, slug, pagenum, home ) {
 			if ( tax === 'category_name' ) {
 				tax = 'category';
 			}
-			moreBox.html( '<a href="#" data-tax="' + tax + '" data-slug="' + slug + '" data-pagenum="' + nextpagenum + '" data-home="' + home + '">Show More</a>' );
+			moreBox.html( '<a href="#" data-tax="' + tax + '" data-slug="' + slug + '" data-pagenum="' + nextpagenum + '">Show More</a>' );
 		} else {
 			moreBox.remove();
 		}
@@ -266,11 +259,10 @@ $( '#more-entry' ).on('click', 'a', function(e) {
 	var tax  = $(this).attr('data-tax');
 	var slug = $(this).attr('data-slug');
 	var num  = $(this).attr('data-pagenum');
-	var home = $(this).attr('data-slug');
 
 	var postBox = $('#post-box');
 	postBox.append('<div class="loading"><i class="fa fa-refresh fa-5x fa-spin"></i><br><span>loading</span></div>');
-	wpjsonPosts( tax, slug, num, home );
+	wpjsonPosts( tax, slug, num );
 });
 
 

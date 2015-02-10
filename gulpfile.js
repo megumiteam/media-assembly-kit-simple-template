@@ -20,6 +20,13 @@ gulp.task( 'js', function() {
 		.pipe($.concat('wpjsonpostlist.min.js'))
 		.pipe($.uglify())
 		.pipe(gulp.dest('../../../assets/js'))
+	// wpjsonpost
+	gulp.src( 'js/wpjsonpost.js' )
+		.pipe($.jshint())
+		.pipe($.jshint.reporter('default'))
+		.pipe($.concat('wpjsonpost.min.js'))
+		.pipe($.uglify())
+		.pipe(gulp.dest('../../../assets/js'))
 	// wpjsonranking
 	gulp.src( 'js/wpjsonranking.js' )
 		.pipe($.jshint())
