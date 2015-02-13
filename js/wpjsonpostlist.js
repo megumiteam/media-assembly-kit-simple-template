@@ -32,31 +32,6 @@ var HashObserve = {
 
 (function($){
 
-// Date Format
-function post_date_format( date ) {
-	var toDoubleDigits = function(num) {
-		num += "";
-		if (num.length === 1) {
-			num = "0" + num;
-		}
-		return num;
-	};
-
-	var jdate = date.substr(0,19);
-	    jdate = jdate + '+09:00';
-
-	var post_date = new Date( jdate );
-	var yyyy = post_date.getFullYear();
-	var mm   = toDoubleDigits(post_date.getMonth() + 1);
-	var dd   = toDoubleDigits(post_date.getDate());
-	var hh   = toDoubleDigits(post_date.getHours());
-	var mi   = toDoubleDigits(post_date.getMinutes());
-
-	post_date =  yyyy + '.' + mm + "." + dd + " " + hh + ":" + mi;
-
-	return post_date;
-}
-
 // posts
 window.wpjsonPosts = function( tax, slug, pagenum ) {
 
@@ -173,7 +148,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 			return;
 		}
 
-		$.each(data, function( i ) {
+		$.each(data, function() {
 			date       = this.date;
 			date       = date.substr(0,19) + '+09:00';
 			dateja     = post_date_format( date );

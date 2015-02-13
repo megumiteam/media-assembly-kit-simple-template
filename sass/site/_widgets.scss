@@ -54,38 +54,18 @@
 
 /* Ranking widget. */
 .widget-ranking {
-	ol {
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
+	.hentry {
+		@extend .clear;
 	}
-	li {
-		position: relative;
-		padding-left: 30px;
+	.entry-rank {
 		@include fz(16);
-		color: $color__text-entry-title;
 		font-weight: 900;
-		border-bottom: solid 1px $color__border-hentry;
-		padding-bottom: $margin__section;
-		margin-bottom: $margin__section;
-		&:before {
-			content: '';
-			@include fz(16);
-			color: $color__text-entry-title;
-			font-weight: 900;
-			position: absolute;
-			left: 0;
-		}
-		a {
-			color: $color__text-entry-title;
-		}
-		
-		@for $i from 1 through 10 {  
-			&:nth-child(#{$i}) {  
-				&:before {
-					content: $i + '.';
-				}
-			}
-		}
+		color: $color__text-entry-title;
+		float: left;
+		width: 1.25em;
+		margin-right: 0.5em;
+	}
+	.entry-header {
+		overflow: hidden;
 	}
 }
