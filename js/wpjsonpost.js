@@ -204,22 +204,53 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 // Related Posts
 window.wpjsonRelated = function( id ) {
 
-	var RelatedArea = $('#related-box');
-
 	if ( typeof id === 'undefined' ) {
 		RelatedArea.remove();
 		return;
 	}
 
+	var RelatedArea = $('#related-box');
+	var items = [];
 	$.ajax({
 		type: 'GET',
-		url:  root + 'mak_related/' + id
+		url:  root + 'sirp_related/' + id
 	}).done(function(data, status, xhr) {
-		if ( data.content.length === 0 ) {
+		if ( data.length === 0 ) {
 			RelatedArea.remove();
 			return;
 		}
-		RelatedArea.html(data.content);
+		$.each(data, function() {
+			
+			date          = this.date;
+			date          = date.substr(0,19) + '+09:00';
+			dateja        = post_date_format( date );
+			link          = 'http://' + location.hostname + '/post/#!/' + this.ID;
+
+			thumbnail  = 'http://placehold.it/320x200&amp;text=noimage';
+			if ( this.featured_image !== null && this.featured_image.source !== undefined ) {
+				thumbnail = this.featured_image.source;
+				if ( this.featured_image.attachment_meta.sizes !== undefined && this.featured_image.attachment_meta.sizes['square-320-image'] !== undefined ) {
+					thumbnail = this.featured_image.attachment_meta.sizes['square-320-image'].url;
+				}
+			}
+			if ( thumbnail !== '' ) {
+				thumbnail = '<div class="thumbnail"><img src="' + thumbnail + '" alt="*"></div>';
+			}
+
+			// output
+			items.push(
+				'<li id="post-' + this.ID + '" class="post hentry thumbnail-true">' +
+					'<a href="' + link + '" title="' +  this.title + '" rel="bookmark">' +
+						thumbnail +
+						'<div class="entry-title">' + this.title + '</div>' +
+					'</div>' +
+					'</a>' +
+				'</li>'
+			);
+		});
+
+		items = items.join("\n");
+		RelatedArea.html( '<h1 class="widget-title">Related posts</h1><ul class="post-list">' + items + '</ul>');
 
 	}).fail(function(xhr, status, error) {
 		RelatedArea.remove();

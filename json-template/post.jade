@@ -39,7 +39,7 @@ block primary
 		header.entry-header
 			h1.entry-title
 
-		section.entry-content
+		.entry-content
 			#entry-box
 				include includes/_loader
 		footer.entry-footer
@@ -60,7 +60,7 @@ block primary
 //- secondary content
 block secondary
 	//- Related Posts
-	#related-box
+	aside#related-box.widget.widget-related-post
 
 	//- Ranking
 	aside#ranking-box.post-list.widget.widget-ranking

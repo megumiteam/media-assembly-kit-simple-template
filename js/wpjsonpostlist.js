@@ -152,10 +152,10 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 			date       = this.date;
 			date       = date.substr(0,19) + '+09:00';
 			dateja     = post_date_format( date );
-			//thumbnail  = 'http://placehold.it/100x70&amp;text=noimage';
-			thumbnail  = '';
 			link       = 'http://' + location.hostname + '/post/#!/' + this.ID;
 
+			//thumbnail  = 'http://placehold.it/100x70&amp;text=noimage';
+			thumbnail  = '';
 			if ( this.featured_image !== null && this.featured_image.source !== undefined ) {
 				thumbnail = this.featured_image.source;
 				if ( this.featured_image.attachment_meta.sizes !== undefined && this.featured_image.attachment_meta.sizes['square-100-image'] !== undefined ) {
@@ -165,6 +165,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 			if ( thumbnail !== '' ) {
 				thumbnail = '<div class="thumbnail"><a href="' + link + '" title="' +  this.title + '" rel="bookmark"><img src="' + thumbnail + '" alt="*"></a></div>';
 			}
+
 			categoryArray = '';
 			if ( this.terms.category !== undefined ) {
 				categoryArray = this.terms.category;
@@ -177,16 +178,16 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 
 			// output
 			items.push(
-				'<div id="post-' + this.ID + '" class="post hentry has-thumbnail">' +
+				'<article id="post-' + this.ID + '" class="post hentry has-thumbnail">' +
 					thumbnail +
-					'<div class="entry-header">' +
+					'<header class="entry-header">' +
 						'<h1 class="entry-title"><a href="' + link + '" title="' +  this.title + '" rel="bookmark">' + this.title + '</a></h1>' +
 						'<div class="entry-meta">' +
 							'<div class="entry-date"><i class="fa fa-calendar"></i><time datetime="' + date + '"><a href="' + link + '">' + dateja + '</a></time></div>' +
 							'<div class="posted-in-category"><i class="fa fa-folder-open"></i>' + categoryArray + '</div>' +
 						'</div>' +
-					'</div>' +
-				'</div>'
+					'</header>' +
+				'</article>'
 			);
 
 		});

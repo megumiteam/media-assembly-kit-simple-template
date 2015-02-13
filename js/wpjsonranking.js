@@ -4,11 +4,7 @@ var root = 'http://' + location.hostname + '/wp-json/';
 
 
 // Ranking Posts
-window.wpjsonRanking = function( type ) {
-
-	if ( typeof type === 'undefined' ) {
-		type = 'simple';
-	}
+window.wpjsonRanking = function() {
 
 	var RankingArea = $('#ranking-box');
 	var items = [];
@@ -17,7 +13,7 @@ window.wpjsonRanking = function( type ) {
 		url:  root + 'ranking'
 	}).done(function(data, status, xhr) {
 
-		if ( data.length < 1 ) {
+		if ( data.length === 0 ) {
 			RankingArea.remove();
 			return;
 		}
@@ -41,16 +37,16 @@ window.wpjsonRanking = function( type ) {
 
 			// output
 			items.push(
-				'<div id="post-' + this.ID + '" class="post hentry">' +
+				'<article id="post-' + this.ID + '" class="post hentry">' +
 					'<div class="entry-rank">' + rank + '.</div>' +
-					'<div class="entry-header">' +
+					'<header class="entry-header">' +
 						'<h1 class="entry-title"><a href="' + link + '" title="' +  this.title + '" rel="bookmark">' + this.title + '</a></h1>' +
 						'<div class="entry-meta">' +
 							'<div class="entry-date"><i class="fa fa-calendar"></i><time datetime="' + date + '"><a href="' + link + '">' + dateja + '</a></time></div>' +
 							'<div class="posted-in-category"><i class="fa fa-folder-open"></i>' + categoryArray + '</div>' +
 						'</div>' +
-					'</div>' +
-				'</div>'
+					'</header>' +
+				'</article>'
 			);
 		});
 

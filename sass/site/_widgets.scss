@@ -19,8 +19,8 @@
 	text-align: center;
 }
 
-/* related-post widget. */
-#related-post {
+/* Related post widget */
+.widget-related-post {
 	ul {
 		margin: 0;
 		padding: 0;
@@ -52,7 +52,7 @@
 	}
 }
 
-/* Ranking widget. */
+/* Ranking widget */
 .widget-ranking {
 	.hentry {
 		@extend .clear;
