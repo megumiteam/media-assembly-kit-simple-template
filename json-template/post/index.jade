@@ -1,4 +1,4 @@
-extends extends/_layout
+extends ../extends/_layout
 
 block vars
 	- var sitename    = 'Media Blogger';
@@ -10,15 +10,14 @@ block vars
 block append wp_head
 
 block append wp_footer
-	script(src="/assets/js/wpjsonranking.min.js?ver=#{ver}")
-	script(src="/assets/js/wpjsonpost.min.js?ver=#{ver}")
+	script(src="/mak-simple/js/wpjson-ranking.js?ver=#{ver}")
+	script(src="/mak-simple/js/wpjson-post.js?ver=#{ver}")
 	script.
 		(function($) {
 			// post
 			$(window).load( function() {
-				HashObserve.addFunc(function(now_hash, prev_hash){
+				HashMonitor.addFunctions( function( now_hash, prev_hash ){
 					if ( now_hash !== prev_hash ) {
-						// post
 						var hashobj  = location.hash.split("/");
 						var id	 = hashobj.pop();
 						wpjsonPost( 'post', 'posts', '/'+id );
@@ -26,7 +25,7 @@ block append wp_footer
 					}
 				});
 				
-				setInterval(HashObserve.observe, 1000/30);
+				setInterval( HashMonitor.monitoring, 1000/30 );
 			});
 		})(jQuery);
 
@@ -41,7 +40,7 @@ block primary
 
 		.entry-content
 			#entry-box
-				include includes/_loader
+				include ../includes/_loader
 		footer.entry-footer
 			.sns-btn
 				a.facebook(href="#", target="_blank") <i class="fa fa-facebook-official"></i> Facebook

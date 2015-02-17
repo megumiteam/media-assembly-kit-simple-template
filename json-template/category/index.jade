@@ -1,4 +1,4 @@
-extends extends/_layout
+extends ../extends/_layout
 
 block vars
 	- var sitename    = 'Media Blogger';
@@ -10,15 +10,14 @@ block vars
 block append wp_head
 
 block append wp_footer
-	script(src="/assets/js/wpjsonranking.min.js?ver=#{ver}")
-	script(src="/assets/js/wpjsonpostlist.min.js?ver=#{ver}")
+	script(src="/mak-simple/js/wpjson-ranking.js?ver=#{ver}")
+	script(src="/mak-simple/js/wpjson-postlist.js?ver=#{ver}")
 	script.
 		(function($) {
 			// archive
 			$(window).load( function() {
-				HashObserve.addFunc(function(now_hash, prev_hash){
+				HashMonitor.addFunctions( function( now_hash, prev_hash ){
 					if ( now_hash !== prev_hash ) {
-						// archive
 						var lpath	= location.pathname.split("/");
 						var lpathend = lpath[lpath.length-1];
 						if ( lpathend === '' ) {
@@ -31,11 +30,12 @@ block append wp_footer
 						if ( hashobj.length > 2 ) {
 							page	 = hashobj[3];
 						}
+						menuclose();
 						wpjsonPosts( taxonomy, term, page );
 					}
 				});
 				
-				setInterval(HashObserve.observe, 1000/30);
+				setInterval( HashMonitor.monitoring, 1000/30 );
 			});
 		})(jQuery);
 
@@ -49,7 +49,7 @@ block primary
 			p
 
 	#post-box.post-list
-		include includes/_loader
+		include ../includes/_loader
 	//- more btn
 	#more-entry
 

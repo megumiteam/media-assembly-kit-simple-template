@@ -1,34 +1,11 @@
-var root = 'http://' + location.hostname + '/wp-json/';
-/**
- * ハッシュ監視クラス(static class)
+/*!
+ * mak-simple - v0.1.0
+ *
+ * https://www.digitalcube.jp/
+ *
+ * Copyright 2014, DigitalCube Co.,Ltd (https://www.digitalcube.jp/)
+ * Released under the GNU General Public License v2 or later
  */
-var HashObserve = {
-	funcList: [],   // ハッシュ変更時に実行する関数リスト
-	prevHash: "",   // 前回のハッシュ
-	
-	/**
-	 * 監視
-	 */
-	observe: function() {
-		// 前回のハッシュと比較
-		if (HashObserve.prevHash!==window.location.hash) {
-			// 登録されている関数を実行
-			for (var i=0; i<HashObserve.funcList.length; ++i) {
-				HashObserve.funcList[i](window.location.hash, HashObserve.prevHash);
-			}
-			// 前回のハッシュを更新
-			HashObserve.prevHash=window.location.hash;
-		}
-	},
-	
-	/**
-	 * ハッシュ変更時に実行する関数を登録
-	 * @param {Object} fn
-	 */
-	addFunc: function(fn) {
-		HashObserve.funcList.push(fn);
-	}
-};
 
 (function($){
 
@@ -49,7 +26,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 		pagenum = '';
 	}
 
-	var apiurl  = root + 'posts/';
+	var apiurl  = apiroot + 'posts/';
 	var postBox = $('#post-box');
 	var moreBox = $('#more-entry');
 
@@ -76,7 +53,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 				
 				$.ajax({
 					type: 'GET',
-					url:  root + 'taxonomies/' + taxonomy + '/terms/'
+					url:  apiroot + 'taxonomies/' + taxonomy + '/terms/'
 				}).done(function(data, status, xhr) {
 	
 					// posts list
@@ -125,7 +102,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 		if ( tax === 'category' ) {
 			tax = 'category_name';
 		}
-		apiurl = root + 'posts?filter[' + tax + ']=' + slug;
+		apiurl = apiroot + 'posts?filter[' + tax + ']=' + slug;
 	}
 
 	var pagefilter = '';
@@ -152,7 +129,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 			date       = this.date;
 			date       = date.substr(0,19) + '+09:00';
 			dateja     = post_date_format( date );
-			link       = 'http://' + location.hostname + '/post/#!/' + this.ID;
+			link       = siteroot + 'post/#!/' + this.ID;
 
 			//thumbnail  = 'http://placehold.it/100x70&amp;text=noimage';
 			thumbnail  = '';
@@ -170,7 +147,7 @@ window.wpjsonPosts = function( tax, slug, pagenum ) {
 			if ( this.terms.category !== undefined ) {
 				categoryArray = this.terms.category;
 				$.each(categoryArray, function( i ) {
-					catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
+					catlink = siteroot + 'category/#!/' + this.slug;
 					categoryArray[i] = '<a href="' + catlink + '">' + this.name + '</a>';
 				});
 				categoryArray = categoryArray.join("\n");

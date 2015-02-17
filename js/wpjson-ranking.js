@@ -1,4 +1,11 @@
-var root = 'http://' + location.hostname + '/wp-json/';
+/*!
+ * mak-simple - v0.1.0
+ *
+ * https://www.digitalcube.jp/
+ *
+ * Copyright 2014, DigitalCube Co.,Ltd (https://www.digitalcube.jp/)
+ * Released under the GNU General Public License v2 or later
+ */
 
 (function($){
 
@@ -10,7 +17,7 @@ window.wpjsonRanking = function() {
 	var items = [];
 	$.ajax({
 		type: 'GET',
-		url:  root + 'ranking'
+		url:  apiroot + 'ranking'
 	}).done(function(data, status, xhr) {
 
 		if ( data.length === 0 ) {
@@ -22,14 +29,14 @@ window.wpjsonRanking = function() {
 			date          = this.date;
 			date          = date.substr(0,19) + '+09:00';
 			dateja        = post_date_format( date );
-			link          = 'http://' + location.hostname + '/post/#!/' + this.ID;
+			link          = siteroot + 'post/#!/' + this.ID;
 			rank          = parseInt(i + 1);
 
 			categoryArray = '';
 			if ( this.terms.category !== undefined ) {
 				categoryArray = this.terms.category;
 				$.each(categoryArray, function( i ) {
-					catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
+					catlink = siteroot + 'category/#!/' + this.slug;
 					categoryArray[i] = '<a href="' + catlink + '">' + this.name + '</a>';
 				});
 				categoryArray = categoryArray.join("\n");

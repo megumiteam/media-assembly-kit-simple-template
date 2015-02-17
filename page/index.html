@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:mixi="http://mixi-platform.com/ns#">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title | Media Blogger</title>
+    <link id="google-fonts-css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:700,900,400">
+    <link id="font-awesome-css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link id="mak-css" rel="stylesheet" href="/mak-simple/css/style.css?ver=v0.1.0">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  </head>
+  <body class="page">
+    <div id="page" class="hfeed site">
+      <header id="masthead" role="banner" class="site-header">
+        <h1 class="site-title"><a href="/mak-simple/" rel="home" class="homelink">Media Blogger</a></h1>
+        <nav id="site-navigation" role="navigation" class="main-navigation">
+          <button id="site-navigation-toggle" class="menu-toggle"><span class="screen-reader-text">MENU</span><i class="fa fa-bars"></i></button>
+          <div id="site-navigation-menu"></div>
+        </nav>
+        <div id="search-box">
+          <button id="search-box-toggle" class="search-box-toggle"><span class="screen-reader-text">Search</span><i class="fa fa-search"></i></button>
+          <form role="search" method="get" action="/mak-simple/search.html" class="search-form">
+            <input type="search" value="" name="s" placeholder="Search" class="search-field">
+            <button type="submit" class="search-submit"><i class="fa fa-search"></i><span class="screen-reader-text">検索</span></button>
+          </form>
+        </div>
+      </header>
+      <div id="content" class="site-content">
+        <main id="primary" role="main" class="site-main">
+          <article class="post hentry">
+            <header class="entry-header">
+              <h1 class="entry-title"></h1>
+            </header>
+            <div class="entry-content">
+              <div id="entry-box">
+                <div class="loading"><i class="fa fa-refresh fa-5x fa-spin"></i><br><span>loading</span></div>
+              </div>
+            </div>
+          </article>
+        </main>
+        <div id="secondary" role="complementary" class="widget-area">
+          <aside id="ranking-box" class="post-list widget widget-ranking"></aside>
+        </div>
+      </div>
+      <footer id="colophon" role="contentinfo" class="site-footer">
+        <p id="copyright">Copyright © 2015 DigitalCube Co. Ltd. All Rights Reserved.</p>
+      </footer>
+    </div>
+    <script src="/mak-simple/js/app.js?ver=v0.1.0"></script>
+    <script src="/mak-simple/js/wpjson-root.js?ver=v0.1.0"></script>
+    <script src="/mak-simple/js/wpjson-ranking.js?ver=v0.1.0"></script>
+    <script src="/mak-simple/js/wpjson-post.js?ver=v0.1.0"></script>
+    <script>
+      (function($) {
+      	// page
+      	$(window).load( function() {
+      		HashMonitor.addFunctions( function( now_hash, prev_hash ){
+      		if ( now_hash !== prev_hash ) {
+      			var hashobj  = location.hash.split("/");
+      			hashobj.shift();
+      			var id	 = hashobj.join('/');
+      			wpjsonPost( 'page', 'pages', '/' + id );
+      			}
+      		});
+      		
+      		setInterval( HashMonitor.monitoring, 1000/30 );
+      	});
+      })(jQuery);
+      
+    </script>
+  </body>
+</html>

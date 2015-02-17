@@ -1,34 +1,11 @@
-var root = 'http://' + location.hostname + '/wp-json/';
-/**
- * ハッシュ監視クラス(static class)
+/*!
+ * mak-simple - v0.1.0
+ *
+ * https://www.digitalcube.jp/
+ *
+ * Copyright 2014, DigitalCube Co.,Ltd (https://www.digitalcube.jp/)
+ * Released under the GNU General Public License v2 or later
  */
-var HashObserve = {
-	funcList: [],   // ハッシュ変更時に実行する関数リスト
-	prevHash: "",   // 前回のハッシュ
-	
-	/**
-	 * 監視
-	 */
-	observe: function() {
-		// 前回のハッシュと比較
-		if (HashObserve.prevHash!==window.location.hash) {
-			// 登録されている関数を実行
-			for (var i=0; i<HashObserve.funcList.length; ++i) {
-				HashObserve.funcList[i](window.location.hash, HashObserve.prevHash);
-			}
-			// 前回のハッシュを更新
-			HashObserve.prevHash=window.location.hash;
-		}
-	},
-	
-	/**
-	 * ハッシュ変更時に実行する関数を登録
-	 * @param {Object} fn
-	 */
-	addFunc: function(fn) {
-		HashObserve.funcList.push(fn);
-	}
-};
 
 (function($){
 var ThemeOption = wpjsonThemeOption();
@@ -46,7 +23,7 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 		filter = '';
 	}
 
-	var apiurl = root + endpoint + filter;
+	var apiurl = apiroot + endpoint + filter;
 
 	var thumbnailBox   = $('#thumbnail-box');
 	var entryTitleBox  = $('#primary .entry-header .entry-title');
@@ -76,7 +53,7 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 		date         = data.date;
 		date         = date.substr(0,19) + '+09:00';
 		dateja       = post_date_format( date );
-		link         = 'http://' + location.hostname + '/post/#!/' + ID;
+		link         = siteroot + 'post/#!/' + ID;
 		content      = data.content;
 		thumbnail    = '';
 		if ( data.featured_image !== null ) {
@@ -119,7 +96,7 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 			}
 			if ( categories ) {
 				$.each( categories, function() {
-					catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
+					catlink = siteroot + 'category/#!/' + this.slug;
 					catitems.push( '<a href="' + catlink + '">' + this.name + '</a>' );
 				});
 				catitems = catitems.join(", ");
@@ -136,7 +113,7 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 			}
 			if ( tags ) {
 				$.each( tags, function() {
-					taglink = 'http://' + location.hostname + '/tag/#!/' + this.slug;
+					taglink = siteroot + 'tag/#!/' + this.slug;
 					tagitems.push( '<a href="' + taglink + '">' + this.name + '</a>' );
 				});
 				tagitems = tagitems.join(", ");
@@ -157,7 +134,7 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 					postFormathtml = '<i class="fa fa-file-text"></i> Aside';
 					break;
 				case 'gallery':
-					postFormathtml = '<i class="fa fa-link"></i> Gallery';
+					postFormathtml = '<i class="fa fa-picture-o"></i> Gallery';
 					break;
 				case 'link':
 					postFormathtml = '<i class="fa fa-link"></i> Link';
@@ -213,7 +190,7 @@ window.wpjsonRelated = function( id ) {
 	var items = [];
 	$.ajax({
 		type: 'GET',
-		url:  root + 'sirp_related/' + id
+		url:  apiroot + 'sirp_related/' + id
 	}).done(function(data, status, xhr) {
 		if ( data.length === 0 ) {
 			RelatedArea.remove();
@@ -224,7 +201,7 @@ window.wpjsonRelated = function( id ) {
 			date          = this.date;
 			date          = date.substr(0,19) + '+09:00';
 			dateja        = post_date_format( date );
-			link          = 'http://' + location.hostname + '/post/#!/' + this.ID;
+			link          = siteroot + 'post/#!/' + this.ID;
 
 			thumbnail  = 'http://placehold.it/320x200&amp;text=noimage';
 			if ( this.featured_image !== null && this.featured_image.source !== undefined ) {

@@ -1,4 +1,4 @@
-- var ver = 201501211100
+- var ver = 'v0.1.0'
 doctype html
 block vars
 html(lang="ja", xmlns:og="http://ogp.me/ns#", xmlns:fb="http://www.facebook.com/2008/fbml", xmlns:mixi="http://mixi-platform.com/ns#")
@@ -14,7 +14,7 @@ html(lang="ja", xmlns:og="http://ogp.me/ns#", xmlns:fb="http://www.facebook.com/
 			title #{title} | #{sitename}
 		link#google-fonts-css(rel="stylesheet", href="//fonts.googleapis.com/css?family=Raleway:700,900,400")
 		link#font-awesome-css(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
-		link#mak-css(rel="stylesheet", href="/assets/css/style.css?ver=#{ver}")
+		link#mak-css(rel="stylesheet", href="/mak-simple/css/style.css?ver=#{ver}")
 
 		script(src="//code.jquery.com/jquery-1.11.2.min.js")
 		script(src="//code.jquery.com/jquery-migrate-1.2.1.min.js")
@@ -39,7 +39,6 @@ html(lang="ja", xmlns:og="http://ogp.me/ns#", xmlns:fb="http://www.facebook.com/
 
 		block wp_footer
 
-			script(src="/assets/js/app.min.js?ver=#{ver}")
-			script(src="/assets/js/wpjsonroot.min.js?ver=#{ver}")
-			//-script(src="/assets/js/wpjson.min.js?ver=#{ver}")
+			script(src="/mak-simple/js/app.js?ver=#{ver}")
+			script(src="/mak-simple/js/wpjson-root.js?ver=#{ver}")
 

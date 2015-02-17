@@ -1,8 +1,45 @@
-var root = 'http://' + location.hostname + '/wp-json/';
+/*!
+ * mak-simple - v0.1.0
+ *
+ * https://www.digitalcube.jp/
+ *
+ * Copyright 2014, DigitalCube Co.,Ltd (https://www.digitalcube.jp/)
+ * Released under the GNU General Public License v2 or later
+ */
+
+/**
+ * URL base
+ */
+var apiroot  = 'http://' + location.hostname + '/wp-json/';
+var siteroot = 'http://' + location.hostname + '/mak-simple/';
+
+/**
+ * HashMonitor
+ */
+var HashMonitor = {
+	functions: [],
+	prevHash:  "",
+	
+	// Monitoring
+	monitoring: function() {
+		if ( HashMonitor.prevHash !== window.location.hash ) {
+			for ( var i=0; i < HashMonitor.functions.length; ++i ) {
+				HashMonitor.functions[i]( window.location.hash, HashMonitor.prevHash );
+			}
+			HashMonitor.prevHash = window.location.hash;
+		}
+	},
+	
+	// function
+	addFunctions: function(fn) {
+		HashMonitor.functions.push(fn);
+	}
+};
+
 (function($){
 
-// escapeHTML
-window.escapeHTML = function(val) {
+// escapeHTMLjs
+window.escapeHTMLjs = function(val) {
 	return $('<div>').html(val).text();
 };
 
@@ -37,8 +74,8 @@ window.wpjsonThemeOption = function() {
 
 	// RootObj
 	var wpjsonRootObj = $.ajax({
-		type:    'GET',
-		url:     root,
+		type:  'GET',
+		url:   apiroot,
 		async: false
 	}).done(function(data, status, xhr) {
 		if ( data.length === 0 || data === false ) {
@@ -46,7 +83,6 @@ window.wpjsonThemeOption = function() {
 		}
 		ThemeOption['site_name']        = data.name;
 		ThemeOption['site_description'] = data.description;
-		ThemeOption['site_url']         = data.URL + '/';
 
 	});
 
@@ -65,21 +101,20 @@ $('title').each(function(){
 		$(this).html( txt.replace(a[i], b[i], "g") );
 	}
 });
-$('a.homelink').attr( 'href', ThemeOption.site_url );
 
 // Global Menu
 var GlobalMenuBox = $('#site-navigation-menu');
 var GlobalMenu = [];
 var wpjsonGlobalMenuObj = $.ajax({
 	type: 'GET',
-	url:  root + 'taxonomies/category/terms'
+	url:  apiroot + 'taxonomies/category/terms'
 }).done(function(data, status, xhr) {
 	if ( data.length === 0 ) {
 		return;
 	}
 
 	$.each(data, function() {
-		catlink = 'http://' + location.hostname + '/category/#!/' + this.slug;
+		catlink = siteroot + 'category/#!/' + this.slug;
 		GlobalMenu.push(
 			'<li><a href="' + catlink + '">' + this.name + '</a></li>'
 		);

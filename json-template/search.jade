@@ -10,8 +10,8 @@ block vars
 block append wp_head
 
 block append wp_footer
-	script(src="/assets/js/wpjsonranking.min.js?ver=#{ver}")
-	script(src="/assets/js/wpjsonpostlist.min.js?ver=#{ver}")
+	script(src="/mak-simple/js/wpjson-ranking.js?ver=#{ver}")
+	script(src="/mak-simple/js/wpjson-postlist.js?ver=#{ver}")
 	script.
 		(function($) {
 			// search
@@ -25,7 +25,7 @@ block append wp_footer
 					var paramName = decodeURIComponent( element[ 0 ] );
 					var paramValue = decodeURIComponent( element[ 1 ] );
 					// パラメータ名をキーとして連想配列に追加する
-					result[ paramName ] = escapeHTML(paramValue);
+					result[ paramName ] = escapeHTMLjs(paramValue);
 				}
 
 				var lpath    = location.pathname.split("/");
