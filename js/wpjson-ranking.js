@@ -21,7 +21,6 @@ window.wpjsonRanking = function() {
 	}).done(function(data, status, xhr) {
 
 		if ( data.length === 0 ) {
-			RankingArea.remove();
 			return;
 		}
 
@@ -60,12 +59,11 @@ window.wpjsonRanking = function() {
 		items = items.join( "\n" );
 		RankingArea.html( '<h1 class="widget-title">Ranking</h1>' + items );
 
-	}).fail(function(xhr, status, error) {
-		RankingArea.remove();
 	});
 
 	return;
 };
+
 wpjsonRanking();
 
 })(jQuery);

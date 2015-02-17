@@ -69,8 +69,6 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 
 		if ( thumbnail !== '' ) {
 			thumbnailBox.html( '<div class="thumbnail"><img src="'+ thumbnail +'" alt="' + title + '"></div>' );
-		} else {
-			thumbnailBox.remove();
 		}
 
 		entryBox.html( content );
@@ -101,8 +99,6 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 				});
 				catitems = catitems.join(", ");
 				entryCatsBox.children( 'span.cats' ).html( catitems );
-			} else {
-				entryCatsBox.remove();
 			}
 	
 			// entry tags
@@ -118,8 +114,6 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 				});
 				tagitems = tagitems.join(", ");
 				entryTagsBox.children( 'span.tags' ).html( tagitems );
-			} else {
-				entryTagsBox.remove();
 			}
 	
 			// entry author
@@ -163,8 +157,6 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 			}
 			if ( postFormathtml ) {
 				entryFormtBox.html( postFormathtml );
-			} else {
-				entryFormtBox.remove();
 			}
 		}
 
@@ -182,7 +174,6 @@ window.wpjsonPost = function( objtype, endpoint, filter ) {
 window.wpjsonRelated = function( id ) {
 
 	if ( typeof id === 'undefined' ) {
-		RelatedArea.remove();
 		return;
 	}
 
@@ -193,7 +184,6 @@ window.wpjsonRelated = function( id ) {
 		url:  apiroot + 'sirp_related/' + id
 	}).done(function(data, status, xhr) {
 		if ( data.length === 0 ) {
-			RelatedArea.remove();
 			return;
 		}
 		$.each(data, function() {
@@ -229,8 +219,6 @@ window.wpjsonRelated = function( id ) {
 		items = items.join("\n");
 		RelatedArea.html( '<h1 class="widget-title">Related posts</h1><ul class="post-list">' + items + '</ul>');
 
-	}).fail(function(xhr, status, error) {
-		RelatedArea.remove();
 	});
 
 	return;
